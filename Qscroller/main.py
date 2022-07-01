@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
         width = self.size().width()
         with tempfile.TemporaryDirectory() as path:
-            pages = convert_from_path('/home/nir/Desktop/opensource/qt_answers/Qscroller/ma_snake_guide.pdf', 500, fmt="jpeg", output_folder=str(path), size=width*15)
+            pages = convert_from_path(str(Path(__file__).parent / 'ma_snake_guide.pdf'), 500, fmt="jpeg", output_folder=str(path), size=width*15)
             pages = pages[1:4]
             for page in pages:
                 label = QLabel(self)
