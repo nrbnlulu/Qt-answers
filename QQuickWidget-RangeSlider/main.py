@@ -1,18 +1,25 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFrame, QVBoxLayout, QFormLayout, QLineEdit
+from PyQt5.QtWidgets import (
+    QMainWindow,
+    QApplication,
+    QFrame,
+    QVBoxLayout,
+    QFormLayout,
+    QLineEdit,
+)
 from PyQt5.QtQuickWidgets import QQuickWidget
 import sys
 from PyQt5.QtCore import QUrl, pyqtSlot
 from pathlib import Path
 
+
 class Main(QMainWindow):
     @pyqtSlot(float)
     def set_from(self, from_: float):
-            self.from_le.setText(str(from_))
+        self.from_le.setText(str(from_))
 
     @pyqtSlot(float)
     def set_to(self, to: float):
         self.to_le.setText(str(to))
-
 
     def __init__(self):
         super().__init__()
@@ -33,10 +40,10 @@ class Main(QMainWindow):
         self.qquick_widget = QQuickWidget(self.top_frame)
         self.top_layout.addWidget(self.qquick_widget)
         self.qquick_widget.setResizeMode(QQuickWidget.ResizeMode.SizeRootObjectToView)
-        self.qquick_widget.engine().rootContext().setContextProperty("SomeNameForPythonBridge", self)
+        self.qquick_widget.engine().rootContext().setContextProperty(
+            "SomeNameForPythonBridge", self
+        )
         self.qquick_widget.setSource(QUrl(str(Path(__file__).parent / "main.qml")))
-        
-        
 
 
 if __name__ == "__main__":
@@ -44,5 +51,3 @@ if __name__ == "__main__":
     main_gui = Main()
     main_gui.show()
     sys.exit(app.exec())
-
-
