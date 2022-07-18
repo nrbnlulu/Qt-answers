@@ -1,16 +1,14 @@
 import QtQuick
 import QtQuick.Controls
-Rectangle{id: root
+import QtQuick.Controls.Material 2.15
+
+Item{id: root
     anchors.fill: parent;
-    color: "grey"
     signal loggedIn;
 
     TextArea{id: input_
         placeholderText: "Enter password"
         anchors.centerIn: parent
-        background: Rectangle{
-            color: "red"
-        }
     }
     Button{
         text: "Login";
