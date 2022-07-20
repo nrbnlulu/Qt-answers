@@ -29,7 +29,7 @@ class SignalStore(QThread):
 
     def run(self):
         time.sleep(1) # fake working...
-        self.print_func.emit("hello from thread")
+        self.print_func.emit(f"hello from thread {currentThread()}")
 
 
 class MainWindow(QWidget):
