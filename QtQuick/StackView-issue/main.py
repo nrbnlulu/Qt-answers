@@ -1,9 +1,8 @@
 import sys
 from pathlib import Path
+
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
-
-
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
@@ -16,4 +15,3 @@ if __name__ == "__main__":
         sys.exit(-1)
 
     sys.exit(app.exec())
-

@@ -1,7 +1,9 @@
-from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QStandardItem, QStandardItemModel
-from PyQt5 import QtWidgets as qt
 import sys
+
+from PyQt5 import QtWidgets as qt
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+
 
 class Main(qt.QMainWindow):
     def __init__(self):
@@ -16,7 +18,7 @@ class Main(qt.QMainWindow):
         tabmb.setSelectionMode(qt.QTableView.SelectionMode(1))
         tabmb.setSelectionBehavior(tabmb.SelectionBehavior(1))
         laymb.addWidget(tabmb)
-        subj = [QStandardItem('Testing...') for _ in range(10)]
+        subj = [QStandardItem("Testing...") for _ in range(10)]
         model.appendColumn(subj)
         tabmb.signal.connect(self.tabled_clicked)
 
@@ -32,7 +34,8 @@ class TableViewClick(qt.QTableView):
     def mousePressEvent(self, event):
         qt.QTableView.mousePressEvent(self, event)
         self.signal.emit()
-        
+
+
 app = qt.QApplication(sys.argv)
 main_gui = Main()
 main_gui.show()

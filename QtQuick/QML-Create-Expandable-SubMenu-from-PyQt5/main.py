@@ -1,17 +1,17 @@
 import sys
-from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterType
-from PyQt5.QtGui import QGuiApplication
+from pathlib import Path
+
 from PyQt5.QtCore import (
-    QTimer,
-    QObject,
-    pyqtSignal,
-    pyqtSlot,
     QAbstractListModel,
     QModelIndex,
+    QObject,
     Qt,
     pyqtProperty,
+    pyqtSignal,
+    pyqtSlot,
 )
-from pathlib import Path
+from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtQml import QQmlApplicationEngine
 
 
 class Backend(QObject):
@@ -21,14 +21,12 @@ class Backend(QObject):
         super().__init__()
         self._model = MyListModel()
 
-    ##~~Expose model as a property of our backend~~##
     @pyqtProperty(QObject, constant=False, notify=modelChanged)
     def model(self):
         return self._model
 
 
 class MyListModel(QAbstractListModel):
-    ##~~My Custom UserRoles~~##
     NameRole = Qt.UserRole + 1000
     CollapsedRole = Qt.UserRole + 1001
     SubItemsRole = Qt.UserRole + 1002
@@ -36,6 +34,11 @@ class MyListModel(QAbstractListModel):
     def __init__(self, parent=None):
         super().__init__()
         self.itemNames = []
+        self.roles = {
+            MyListModel.NameRole: b"assetName",
+            MyListModel.SubItemsRole: b"subItems",
+            MyListModel.CollapsedRole: b"isCollapsed",
+        }
 
     def rowCount(self, parent=None, *args, **kwargs):
         return len(self.itemNames)
@@ -50,13 +53,11 @@ class MyListModel(QAbstractListModel):
                 return item["subItems"]
             elif role == MyListModel.CollapsedRole:
                 return item["isCollapsed"]
+        return None
 
     def roleNames(self):
-        roles = dict()
-        roles[MyListModel.NameRole] = b"assetName"
-        roles[MyListModel.SubItemsRole] = b"subItems"
-        roles[MyListModel.CollapsedRole] = b"isCollapsed"
-        return roles
+
+        return self.roles
 
     @pyqtSlot(str, bool)
     def appendRow(self, name, isCollapsed):
@@ -81,7 +82,6 @@ class MyListModel(QAbstractListModel):
 
 
 class MySubListModel(QAbstractListModel):
-    ##~~My Custom UserRole For SubItem ListModel~~##
     CellSizeRole = Qt.UserRole + 1004
 
     def __init__(self, parent=None):
@@ -97,11 +97,10 @@ class MySubListModel(QAbstractListModel):
 
             if role == MySubListModel.CellSizeRole:
                 return item["cellSize"]
+        return None
 
     def roleNames(self):
-        roles = dict()
-        roles[MySubListModel.CellSizeRole] = b"cellSize"
-        return roles
+        return {MySubListModel.CellSizeRole: b"cellSize"}
 
     def addRow(self):
         self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
@@ -114,9 +113,7 @@ class MainWindow:
         app = QGuiApplication(sys.argv)
         self.engine = QQmlApplicationEngine()
         self.engine.quit.connect(app.quit)
-        self.engine.load(
-            f"{str(Path(__file__).parent)}/main.qml"
-        )
+        self.engine.load(f"{str(Path(__file__).parent)}/main.qml")
 
         app_backend = Backend()
         self.engine.rootContext().setContextProperty("backendObjectInQML", app_backend)
@@ -126,10 +123,8 @@ class MainWindow:
 
 
 def main():
-    window = MainWindow()
+    MainWindow()
 
 
 if __name__ == "__main__":
     main()
-
-

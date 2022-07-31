@@ -1,12 +1,13 @@
+import random
 import sys
 from pathlib import Path
-from PySide6.QtCore import QObject, Slot, Signal, QRunnable, QThreadPool
-from PySide6.QtGui import QGuiApplication, QImage
-from PySide6.QtQml import QQmlApplicationEngine, QmlElement
+
 import cv2
 import numpy as np
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
+from PySide6.QtGui import QGuiApplication, QImage
+from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 from pyzbar import pyzbar
-import random 
 
 QML_IMPORT_NAME = "com.myapp.components"
 QML_IMPORT_MAJOR_VERSION = 1
@@ -41,10 +42,9 @@ class Cv2Capture(QObject):
     imageAnalayized = Signal(bool)
 
     @Slot(int, QImage)
-    def receive(self,req_id, image: QImage):
+    def receive(self, req_id, image: QImage):
         worker = Worker(self.imageAnalayized, image)
         QThreadPool.globalInstance().start(worker)
-
 
 
 if __name__ == "__main__":
@@ -56,4 +56,3 @@ if __name__ == "__main__":
         sys.exit(-1)
 
     sys.exit(app.exec())
-

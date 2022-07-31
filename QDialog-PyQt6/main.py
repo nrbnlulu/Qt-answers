@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QFileDialog, QFrame
-from PyQt6 import uic
 import sys
+
+from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow, QPushButton
 
 
 class Main(QMainWindow):
@@ -19,12 +19,10 @@ class Main(QMainWindow):
             "All Files (*);; Python Files (*.py);; PNG Files (*.png)",
         )
         print(fname)
-        
-    
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main_gui = Main()
     main_gui.show()
     sys.exit(app.exec())
-
-

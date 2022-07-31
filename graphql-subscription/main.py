@@ -1,12 +1,10 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
-from PySide6 import QtCore as qtc
-import sys
 
-
-from gql import gql, Client
+from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
 from graphql import subscribe
+from PySide6 import QtCore as qtc
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 
 
 class SendQueryWorker(qtc.QRunnable):
@@ -17,10 +15,7 @@ class SendQueryWorker(qtc.QRunnable):
     flags will modify the data as necessary
     """
 
-    def __init__(
-        self,
-        signal: qtc.Signal
-    ):
+    def __init__(self, signal: qtc.Signal):
         super().__init__()
         self.signal = signal
 
@@ -50,10 +45,10 @@ class SendQueryWorker(qtc.QRunnable):
         for result in client.subscribe(query):
             self.signal.emit(result)
 
-from pprint import pprint
 
 class Main(QMainWindow):
     test = qtc.Signal(dict)
+
     def __init__(self):
         super().__init__()
         btn = QPushButton(self)
@@ -61,11 +56,11 @@ class Main(QMainWindow):
         self.setCentralWidget(btn)
         btn.clicked.connect(lambda: subscribe(self.test))
         self.test.connect(self.recevier)
-        
+
     @qtc.Slot(dict)
     def recevier(self, res: dict):
         print(res)
-        
+
 
 def subscribe(signal: qtc.Signal) -> None:
     """sends query and returns a dict|df to receiver"""

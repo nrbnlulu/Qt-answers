@@ -1,19 +1,22 @@
 from tempfile import TemporaryDirectory
-from PyQt5 import QtCore
+
 import pandas as pd
-from PyQt5 import QtWidgets
 import requests
-excel = requests.get(r"https://exinfm.com/excel%20files/capbudg.xls", allow_redirects=True)
-with  TemporaryDirectory() as dir:
+from PyQt5 import QtCore, QtWidgets
+
+excel = requests.get(
+    r"https://exinfm.com/excel%20files/capbudg.xls", allow_redirects=True
+)
+with TemporaryDirectory() as dir:
     with open(f"{dir}/excelFile.xlsx", "wb") as fh:
         fh.write(excel.content)
-    
+
     class DataFrameModel(QtCore.QAbstractTableModel):
         DtypeRole = QtCore.Qt.UserRole + 1000
         ValueRole = QtCore.Qt.UserRole + 1001
 
         def __init__(self, df=pd.DataFrame(), parent=None):
-            super(DataFrameModel, self).__init__(parent)
+            super().__init__(parent)
             self._dataframe = df
 
         def setDataFrame(self, dataframe):
@@ -27,7 +30,12 @@ with  TemporaryDirectory() as dir:
         dataFrame = QtCore.pyqtProperty(pd.DataFrame, fget=dataFrame, fset=setDataFrame)
 
         @QtCore.pyqtSlot(int, QtCore.Qt.Orientation, result=str)
-        def headerData(self, section: int, orientation: QtCore.Qt.Orientation, role: int = QtCore.Qt.DisplayRole):
+        def headerData(
+            self,
+            section: int,
+            orientation: QtCore.Qt.Orientation,
+            role: int = QtCore.Qt.DisplayRole,
+        ):
             if role == QtCore.Qt.DisplayRole:
                 if orientation == QtCore.Qt.Horizontal:
                     return self._dataframe.columns[section]
@@ -46,8 +54,10 @@ with  TemporaryDirectory() as dir:
             return self._dataframe.columns.size
 
         def data(self, index, role=QtCore.Qt.DisplayRole):
-            if not index.isValid() or not (0 <= index.row() < self.rowCount() \
-                and 0 <= index.column() < self.columnCount()):
+            if not index.isValid() or not (
+                0 <= index.row() < self.rowCount()
+                and 0 <= index.column() < self.columnCount()
+            ):
                 return QtCore.QVariant()
             row = self._dataframe.index[index.row()]
             col = self._dataframe.columns[index.column()]
@@ -64,15 +74,13 @@ with  TemporaryDirectory() as dir:
 
         def roleNames(self):
             roles = {
-                QtCore.Qt.DisplayRole: b'display',
-                DataFrameModel.DtypeRole: b'dtype',
-                DataFrameModel.ValueRole: b'value'
+                QtCore.Qt.DisplayRole: b"display",
+                DataFrameModel.DtypeRole: b"dtype",
+                DataFrameModel.ValueRole: b"value",
             }
             return roles
 
-
-
-    class Ui_MainWindow(object):
+    class Ui_MainWindow:
         def setupUi(self, MainWindow):
             MainWindow.setObjectName("MainWindow")
             MainWindow.resize(662, 512)
@@ -110,7 +118,6 @@ with  TemporaryDirectory() as dir:
             MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
             self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
-
             self.pushButton.clicked.connect(self.btn_clk)
 
             MainWindow.show()
@@ -121,9 +128,9 @@ with  TemporaryDirectory() as dir:
             model = DataFrameModel(df)
             self.tableView.setModel(model)
 
-
     if __name__ == "__main__":
         import sys
+
         app = QtWidgets.QApplication(sys.argv)
         MainWindow = QtWidgets.QMainWindow()
         ui = Ui_MainWindow()

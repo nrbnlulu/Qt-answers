@@ -1,15 +1,17 @@
+import sys
+from functools import partial
+
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import (
-    QMainWindow,
     QApplication,
-    QPushButton,
     QFileDialog,
     QFrame,
     QGridLayout,
     QLineEdit,
+    QMainWindow,
+    QPushButton,
 )
-from PyQt5.QtCore import pyqtSlot
-import sys
-from functools import partial
+
 
 class Main(QMainWindow):
     def __init__(self):
@@ -28,10 +30,7 @@ class Main(QMainWindow):
     @pyqtSlot(QLineEdit)
     def open_dialog(self, le: QLineEdit):
         file_name = QFileDialog.getOpenFileName(
-            self,
-            "Open File",
-            "${HOME}",
-            "All Files (*)"
+            self, "Open File", "${HOME}", "All Files (*)"
         )
         le.setText(file_name[0])
 

@@ -1,9 +1,9 @@
 import sys
 from pathlib import Path
+
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtGui import QGuiApplication, QImage
-from PySide6.QtQml import QQmlApplicationEngine, QmlElement
-
+from PySide6.QtQml import QmlElement, QQmlApplicationEngine
 
 QML_IMPORT_NAME = "io.qt.textproperties"
 QML_IMPORT_MAJOR_VERSION = 1
@@ -12,7 +12,7 @@ QML_IMPORT_MAJOR_VERSION = 1
 @QmlElement
 class Bridge(QObject):
     @Slot(int, QImage)
-    def receive(self,req_id, preview):
+    def receive(self, req_id, preview):
         # Do something with the preview
         print(req_id)
         print(type(preview))
@@ -31,4 +31,3 @@ if __name__ == "__main__":
         sys.exit(-1)
 
     sys.exit(app.exec())
-

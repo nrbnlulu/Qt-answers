@@ -1,15 +1,16 @@
-from PyQt5.QtWidgets import (
-    QMainWindow,
-    QApplication,
-    QFrame,
-    QVBoxLayout,
-    QFormLayout,
-    QLineEdit,
-)
-from PyQt5.QtQuickWidgets import QQuickWidget
 import sys
-from PyQt5.QtCore import QUrl, pyqtSlot
 from pathlib import Path
+
+from PyQt5.QtCore import QUrl, pyqtSlot
+from PyQt5.QtQuickWidgets import QQuickWidget
+from PyQt5.QtWidgets import (
+    QApplication,
+    QFormLayout,
+    QFrame,
+    QLineEdit,
+    QMainWindow,
+    QVBoxLayout,
+)
 
 
 class Main(QMainWindow):

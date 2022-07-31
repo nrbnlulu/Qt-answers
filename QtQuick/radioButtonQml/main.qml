@@ -67,7 +67,7 @@ Rectangle {
             onClicked:{
                 root.currentIndex =table_model.index(model.row, model.column)
                 console.log(root.currentIndex)
-            } 
+            }
         }
       Text {
         text: display

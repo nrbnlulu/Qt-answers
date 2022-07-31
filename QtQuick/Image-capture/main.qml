@@ -11,7 +11,7 @@ ApplicationWindow {
     height: 480
     visible: true
     title: qsTr("Cam Test")
-    
+
     Bridge {
         id: bridge
     }
@@ -19,7 +19,7 @@ ApplicationWindow {
     Rectangle {
         width: 640
         height: 400
-       
+
         MediaDevices {
             id: mediaDevices
         }
@@ -30,7 +30,7 @@ ApplicationWindow {
                 onImageCaptured: function(req_id, preview){bridge.receive(req_id, preview)}
             }
             camera: Camera {
-                id: camera                
+                id: camera
             }
             videoOutput: output
         }

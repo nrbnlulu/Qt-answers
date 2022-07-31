@@ -15,6 +15,7 @@ xlrd = "^2.0.1"
 opencv-python = "^4.6.0"
 pyzbar = "^0.1.9"
 gql = {extras = ["all"], version = "^3.4.0"}
+pre-commit = "^2.20.0"
 
 [tool.poetry.dev-dependencies]
 

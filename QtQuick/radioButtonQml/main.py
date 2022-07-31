@@ -1,8 +1,9 @@
 import sys
 from os.path import abspath, dirname, join
+
+from PyQt5.QtCore import QObject, pyqtSlot
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-from PyQt5.QtCore import QObject, pyqtSlot
 
 
 class App(QObject):
@@ -18,14 +19,15 @@ class App(QObject):
     def on_execute(self):
         print(self.current_rb_text)
 
+
 app = QGuiApplication(sys.argv)
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Reading the qml file
     engine = QQmlApplicationEngine()
     context = engine.rootContext()
     bridge = App()
     context.setContextProperty("App", bridge)
-    qmlFile = join(dirname(__file__), 'main.qml')
+    qmlFile = join(dirname(__file__), "main.qml")
     engine.load(abspath(qmlFile))
 
     if not engine.rootObjects():
