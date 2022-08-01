@@ -44,7 +44,7 @@ Item{id: root
             property variant source: theItem
             property real bend: 0
             property real minimize: 0
-            property real side: 5
+            property real side: 0.9
             SequentialAnimation on bend {
                 NumberAnimation {
                     to: 1; duration: 700; easing.type: Easing.InOutSine

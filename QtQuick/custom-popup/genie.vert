@@ -25,5 +25,6 @@ void main()
     float t = pos.y / ubuf.height;
     t = (3. - 2. * t) * t * t;
     pos.x = mix(qt_Vertex.x, ubuf.side * ubuf.width, t * ubuf.bend);
+
     gl_Position = ubuf.qt_Matrix * pos;
 }
