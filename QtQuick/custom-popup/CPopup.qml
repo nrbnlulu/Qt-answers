@@ -8,6 +8,7 @@ Item{id: root
     signal toggle;
     onToggle: {
         toggled = !toggled
+        
     }
 
     Rectangle{id: _shader
@@ -37,48 +38,49 @@ Item{id: root
     
         layer.enabled: true;
         layer.effect:
-        ShaderEffect {
-            width: theItem.width;
-            height: theItem.height;
-            //! [properties]
-            property variant source: theItem
+        ShaderEffect {id: _effect
             property real bend: 0
             property real minimize: 0
-            property real side: 0.9
+            property real side: root.toggled? 0: 0.8
             SequentialAnimation on bend {
+                running: root.toggled
                 NumberAnimation {
-                    to: 1; duration: 700; easing.type: Easing.InOutSine
+                    to: 0; duration: 300; easing.type: Easing.InOutSine
                 }
                 PauseAnimation {
-                    duration: 1600
+                    duration: 600
                 }
+            }
+            SequentialAnimation on bend {
+                running: !root.toggled
                 NumberAnimation {
-                    to: 0; duration: 700; easing.type: Easing.InOutSine
+                    to: 1; duration: 300; easing.type: Easing.InOutSine
                 }
                 PauseAnimation {
-                    duration: 1000
+                    duration: 700
                 }
             }
             SequentialAnimation on minimize {
+                running: root.toggled
                 NumberAnimation {
-                    to: 1; duration: 700; easing.type: Easing.InOutSine
+                    to: 0; duration: 300; easing.type: Easing.InOutSine
                 }
                 PauseAnimation {
-                    duration: 1000
-                }
-                NumberAnimation {
-                    to: 0; duration: 700; easing.type: Easing.InOutSine
-                }
-                PauseAnimation {
-                    duration: 1300
+                    duration: 700
                 }
             }
-            //! [properties]
-            //! [vertex]
+
+            SequentialAnimation on minimize {
+                running: !root.toggled
+                NumberAnimation {
+                    to: 1; duration: 300; easing.type: Easing.InOutSine
+                }
+                PauseAnimation {
+                    duration: 600
+                }
+            }
             mesh: Qt.size(10, 20)
             vertexShader: "./genie.vert.qsb"
-            //! [vertex]
-
         }
 
     }
@@ -94,6 +96,7 @@ Item{id: root
                 target: _shader
                 opacity: 0.3
             }
+
         },
         State{
             name: "closed"
@@ -102,6 +105,7 @@ Item{id: root
                 target: root;
                 opacity: 0
             }
+
         }
         
     ]
