@@ -3,19 +3,21 @@ import QtQuick.Controls
 import QtQuick.Controls.Material 2.15
 
 Item{id: root
+    property real minimize: 0;
+    property real bend: 0;
     anchors.fill: parent;
     property bool toggled: false
     signal toggle;
     onToggle: {
         toggled = !toggled
-        
+
     }
 
     Rectangle{id: _shader
         anchors.fill: parent;
         color: "black"
     }
-    
+
 
 
     Rectangle{id: theItem
@@ -35,50 +37,13 @@ Item{id: root
             }
         }
 
-    
+
         layer.enabled: true;
         layer.effect:
         ShaderEffect {id: _effect
-            property real bend: 0
-            property real minimize: 0
-            property real side: root.toggled? 0: 0.8
-            SequentialAnimation on bend {
-                running: root.toggled
-                NumberAnimation {
-                    to: 0; duration: 300; easing.type: Easing.InOutSine
-                }
-                PauseAnimation {
-                    duration: 600
-                }
-            }
-            SequentialAnimation on bend {
-                running: !root.toggled
-                NumberAnimation {
-                    to: 1; duration: 300; easing.type: Easing.InOutSine
-                }
-                PauseAnimation {
-                    duration: 700
-                }
-            }
-            SequentialAnimation on minimize {
-                running: root.toggled
-                NumberAnimation {
-                    to: 0; duration: 300; easing.type: Easing.InOutSine
-                }
-                PauseAnimation {
-                    duration: 700
-                }
-            }
-
-            SequentialAnimation on minimize {
-                running: !root.toggled
-                NumberAnimation {
-                    to: 1; duration: 300; easing.type: Easing.InOutSine
-                }
-                PauseAnimation {
-                    duration: 600
-                }
-            }
+            property real bend: root.bend
+            property real minimize: root.minimize
+            property real side: root.toggled? 0: 1
             mesh: Qt.size(10, 20)
             vertexShader: "./genie.vert.qsb"
         }
@@ -91,37 +56,59 @@ Item{id: root
             PropertyChanges{
                 target: root;
                 opacity: 1
+                bend: 0;
+                minimize: 0;
             }
             PropertyChanges{
                 target: _shader
                 opacity: 0.3
             }
-
         },
         State{
             name: "closed"
             when: !toggled;
             PropertyChanges{
                 target: root;
-                opacity: 0
+                opacity: 0;
+                bend: 1;
+                minimize: 1;
             }
-
         }
-        
+
     ]
     transitions: [
         Transition{
             from: "closed"; to: "opened";
             PropertyAnimation{
                 properties: "opacity";
-                easing.type: Easing.InOutQuad 
+                easing.type: Easing.InOutQuad
+            }
+            SequentialAnimation{
+                PropertyAnimation {
+                    properties: "bend, minimize"
+                    duration: 300; easing.type: Easing.InOutSine
+                }
+                PauseAnimation {
+                    duration: 600
+                }
             }
         },
         Transition{
             from: "opened"; to: "closed";
-            PropertyAnimation{
-                properties: "opacity";
-                easing.type: Easing.InOutQuad 
+            ParallelAnimation{
+                PropertyAnimation{
+                    properties: "opacity";
+                    easing.type: Easing.InOutQuad
+                }
+                SequentialAnimation{
+                    PropertyAnimation {
+                        properties: "bend, minimize"
+                        duration: 300; easing.type: Easing.InOutSine
+                    }
+                    PauseAnimation {
+                        duration: 600
+                    }
+                }
             }
         }
     ]
