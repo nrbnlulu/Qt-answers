@@ -1,0 +1,43 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material 2.15
+
+ApplicationWindow {
+    id: mainFrame
+    width: 640
+    height: 480
+    visible: true
+    title: qsTr("Windows handeling in QML")
+    Material.theme: Material.Dark
+    Rectangle{
+        anchors.fill: parent
+        color: "green";
+        Button{
+            anchors.centerIn: parent
+            text: "open popup"
+            onClicked: {
+                onClicked: popup.open()
+            }
+        }
+        TPopup {
+            id: popup
+            x: 100
+            y: 100
+            width: 200
+            height: 300
+            anchors.centerIn: parent;
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            loader_component: 
+            Component{
+                Rectangle{
+                    anchors.fill: parent;
+                    color: "purple"
+                }
+            }
+        }
+    }
+
+
+}

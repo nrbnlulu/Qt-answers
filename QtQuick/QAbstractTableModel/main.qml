@@ -1,14 +1,14 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material 2.15
-
+import QtQuick.Controls.Material 
+import com.example.model 1.0
 ApplicationWindow {
     width: 640
     height: 480
     visible: true
     TableView {
         anchors.fill: parent;
-        id: installedPkgsTable
+        id: tv
         columnSpacing: 1
         rowSpacing: 1
         clip: true
@@ -16,20 +16,21 @@ ApplicationWindow {
 
         model: PyModel
 
-        selectionModel: ItemSelectionModel {
-            model: installedPkgsTable.model
+        selectionModel: ItemSelectionModel {id: selection_model
+            model: tv.model
+        }
+        SelectionRectangle {
+            target: tv
         }
 
         delegate: Rectangle {
-            implicitWidth: 300
-            implicitHeight: 50
-            color: selected ? "blue": "lightgray"
+            implicitWidth: 100
+            implicitHeight: 30
+            color: selected ? "blue" : "lightgray"
 
             required property bool selected
-    
-            Text {
-                text: model.display
-            }
+
+            Text { text: display }
         }
     }
 }
