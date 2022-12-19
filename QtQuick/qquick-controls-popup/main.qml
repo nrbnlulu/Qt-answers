@@ -34,10 +34,11 @@ ApplicationWindow {
                 Rectangle{
                     anchors.fill: parent;
                     color: "purple"
+                    CircularProgressBar{
+                        anchors.fill: parent;
+                    }
                 }
             }
         }
     }
-
-
 }

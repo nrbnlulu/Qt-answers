@@ -2,7 +2,6 @@ import sys
 
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
-from graphql import subscribe
 from PySide6 import QtCore as qtc
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 

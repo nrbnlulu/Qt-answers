@@ -20,11 +20,11 @@ Item{id: root
 
 
 
-    Rectangle{id: theItem
+    Rectangle{id: theItem;
         height: parent.height * 0.8;
         width: parent.width / 2;
-        color: "red"
-        z: parent.z + 1
+        color: "red";
+        z: parent.z + 1;
         anchors{
             verticalCenter: parent.verticalCenter;
             horizontalCenter: parent.horizontalCenter;

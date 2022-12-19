@@ -61,7 +61,6 @@ T.Popup{id: root;
                     duration: 500
                 }
             }
-
         }
     }
 
