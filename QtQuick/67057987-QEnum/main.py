@@ -29,7 +29,7 @@ class App(QObject):
 
     @Property(int, constant=True)
     def enumValue(self):
-        return 0
+        return Status.Connected.value
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ Window {
     visible: true
     width: 1000
     height: 700
-    title: "Portmod"
+    title: "POC"
 
     Rectangle {
         color: App.enumValue == Enums.Status.Connected ? "green" : "red"
