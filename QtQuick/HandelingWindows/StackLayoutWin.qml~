@@ -3,21 +3,19 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material 2.15
 
-Item {
-    id: root
-    signal returnToLogginWin
-    anchors.fill: parent
-    Button {
-        id: return_to_StackView
-        x: parent.width - width
+Item{id: root
+    signal returnToLogginWin;
+    anchors.fill: parent;
+    Button{id: return_to_StackView
+        x: parent.width - width;
         y: tab_bar.y
         text: "return to login page"
         onClicked: {
-            root.returnToLogginWin();
+            root.returnToLogginWin()
         }
     }
-    ColumnLayout {
-        anchors.fill: parent
+    ColumnLayout{
+        anchors.fill: parent;
         TabBar {
             id: tab_bar
             TabButton {
@@ -34,12 +32,13 @@ Item {
             }
         }
 
+
         StackLayout {
             id: stack_layout
             currentIndex: tab_bar.currentIndex
             Rectangle {
                 color: 'teal'
-                Label {
+                Label{
                     anchors.centerIn: parent
                     text: "Page " + stack_layout.currentIndex
                 }
@@ -50,13 +49,15 @@ Item {
                 color: 'plum'
                 implicitWidth: 300
                 implicitHeight: 200
-                Label {
+                Label{
                     anchors.centerIn: parent
                     text: "Page " + stack_layout.currentIndex
                 }
             }
-            JustALoader {
+            JustALoader{
+
             }
         }
+
     }
 }

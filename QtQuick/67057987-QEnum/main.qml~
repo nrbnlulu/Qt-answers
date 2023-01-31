@@ -8,7 +8,7 @@ Window {
     title: "Portmod"
 
     Rectangle {
-        color: App.enumValue == Enums.Status.Connected ? "green" : "red"
+        color: App.enumValue == Enums.Status.Connected? "green": "red"
         anchors.fill: parent
     }
 }

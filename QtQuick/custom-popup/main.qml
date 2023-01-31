@@ -7,23 +7,22 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Windows handeling in QML")
+    title: qsTr("Windows handling in QML")
     Material.theme: Material.Dark
-    Rectangle{
+    Rectangle {
         anchors.fill: parent
-        color: "green";
-    Button{
-        anchors.centerIn: parent
-        text: "open popup"
-        onClicked:{
-           _popup.toggle()
+        color: "green"
+        Button {
+            anchors.centerIn: parent
+            text: "open popup"
+            onClicked: {
+                _popup.toggle();
+            }
+        }
+        CPopup {
+            id: _popup
+            anchors.fill: parent
+            z: parent.z + 1
         }
     }
-    CPopup{id: _popup
-        anchors.fill: parent;
-        z: parent.z + 1
-    }
-    }
-
-
 }

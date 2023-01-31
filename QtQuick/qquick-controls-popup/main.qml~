@@ -9,14 +9,14 @@ ApplicationWindow {
     visible: true
     title: qsTr("Windows handling in QML")
     Material.theme: Material.Dark
-    Rectangle {
+    Rectangle{
         anchors.fill: parent
-        color: "green"
-        Button {
+        color: "green";
+        Button{
             anchors.centerIn: parent
             text: "open popup"
             onClicked: {
-                onClicked: popup.open();
+                onClicked: popup.open()
             }
         }
         TPopup {
@@ -25,16 +25,17 @@ ApplicationWindow {
             y: 100
             width: 200
             height: 300
-            anchors.centerIn: parent
+            anchors.centerIn: parent;
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            loader_component: Component {
-                Rectangle {
-                    anchors.fill: parent
+            loader_component:
+            Component{
+                Rectangle{
+                    anchors.fill: parent;
                     color: "purple"
-                    CircularProgressBar {
-                        anchors.fill: parent
+                    CircularProgressBar{
+                        anchors.fill: parent;
                     }
                 }
             }

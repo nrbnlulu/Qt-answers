@@ -5,16 +5,14 @@ import QtQuick.Controls.Material 2.15
 Item {
     id: root
     anchors.fill: parent
-
-    signal loggedIn
-
+    signal analyzeReport()
     Rectangle {
         id: rectangle
-        color: "red"
+        color: "yellow"
         anchors.fill: parent
         Button {
-            onClicked: {
-                root.loggedIn();
+                onClicked:{
+                root.analyzeReport()
             }
         }
     }

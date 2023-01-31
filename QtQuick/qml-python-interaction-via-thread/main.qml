@@ -4,7 +4,6 @@ import QtMultimedia
 import com.myapp.components
 import QtQuick.Controls.Material
 
-
 ApplicationWindow {
     id: mainFrame
     Material.theme: Material.Dark
@@ -15,10 +14,13 @@ ApplicationWindow {
 
     Cv2Capture {
         id: bridge
-        onImageAnalayized: function(res){console.log(res)}
+        onImageAnalayized: function (res) {
+            console.log(res);
+        }
     }
 
-    Rectangle {id: rect
+    Rectangle {
+        id: rect
         width: 640
         height: 400
 
@@ -29,7 +31,9 @@ ApplicationWindow {
         CaptureSession {
             imageCapture: ImageCapture {
                 id: capture
-                onImageCaptured: function(req_id, preview){bridge.receive(req_id, preview)}
+                onImageCaptured: function (req_id, preview) {
+                    bridge.receive(req_id, preview);
+                }
             }
             camera: Camera {
                 id: camera
@@ -48,8 +52,8 @@ ApplicationWindow {
             anchors.top: output.bottom
             anchors.left: output.left
             onClicked: {
-                camera.start()
-                camImage.opacity = 0
+                camera.start();
+                camImage.opacity = 0;
             }
         }
 
@@ -59,8 +63,8 @@ ApplicationWindow {
             anchors.top: output.bottom
             anchors.left: startCamButton.right
             onClicked: {
-                capture.capture()
-                camImage.opacity = 1
+                capture.capture();
+                camImage.opacity = 1;
             }
         }
 

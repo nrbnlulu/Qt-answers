@@ -56,7 +56,6 @@ class MyListModel(QAbstractListModel):
         return None
 
     def roleNames(self):
-
         return self.roles
 
     @pyqtSlot(str, bool)

@@ -1,7 +1,9 @@
 import QtQuick
 import QtQuick.Controls
 import QtMultimedia
+
 import io.qt.textproperties
+
 
 ApplicationWindow {
     id: mainFrame
@@ -25,9 +27,7 @@ ApplicationWindow {
         CaptureSession {
             imageCapture: ImageCapture {
                 id: capture
-                onImageCaptured: function (req_id, preview) {
-                    bridge.receive(req_id, preview);
-                }
+                onImageCaptured: function(req_id, preview){bridge.receive(req_id, preview)}
             }
             camera: Camera {
                 id: camera
@@ -46,8 +46,8 @@ ApplicationWindow {
             anchors.top: output.bottom
             anchors.left: output.left
             onClicked: {
-                camera.start();
-                camImage.opacity = 0;
+                camera.start()
+                camImage.opacity = 0
             }
         }
 
@@ -57,9 +57,9 @@ ApplicationWindow {
             anchors.top: output.bottom
             anchors.left: startCamButton.right
             onClicked: {
-                capture.capture();
-                bridge.capture();
-                camImage.opacity = 1;
+                capture.capture()
+                bridge.capture()
+                camImage.opacity = 1
             }
         }
 

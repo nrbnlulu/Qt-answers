@@ -6,15 +6,15 @@ Item {
     id: login_item
     anchors.fill: parent
 
-    signal search()
+    signal search
 
     Rectangle {
         id: rectangle
         color: "green"
         anchors.fill: parent
         Button {
-            onClicked:{
-                login_item.search()
+            onClicked: {
+                login_item.search();
             }
         }
     }

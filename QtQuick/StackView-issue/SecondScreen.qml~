@@ -3,18 +3,18 @@ import QtQuick.Controls
 import QtQuick.Controls.Material 2.15
 
 Item {
-    id: root
+    id: login_item
     anchors.fill: parent
 
-    signal loggedIn
+    signal search()
 
     Rectangle {
         id: rectangle
-        color: "red"
+        color: "green"
         anchors.fill: parent
         Button {
-            onClicked: {
-                root.loggedIn();
+            onClicked:{
+                login_item.search()
             }
         }
     }

@@ -123,7 +123,7 @@ with TemporaryDirectory() as dir:
             MainWindow.show()
 
         def btn_clk(self):
-            path = self.lineEdit.text()
+            path = self.lineEdit.text()  # noqa
             df = pd.read_excel(f"{dir}/excelFile.xlsx")
             model = DataFrameModel(df)
             self.tableView.setModel(model)

@@ -1,10 +1,20 @@
-from PyQt5.QtWidgets import *
-from numpy.random import randint
 import sys
-from PyQt5.QtCore import QThread, pyqtSignal
+from datetime import datetime
+
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from datetime import datetime
+from numpy.random import randint
+from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtWidgets import (
+    QPushButton,
+    QWidget,
+    QTabWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QListWidget,
+    QStackedWidget,
+    QApplication,
+)
 
 start = datetime.now()
 
@@ -13,7 +23,7 @@ def random():
     return randint(10000, size=1000)
 
 
-class MplFigure(object):
+class MplFigure:
     def __init__(self, parent):
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
@@ -23,7 +33,7 @@ class plotThread(QThread):
     finished = pyqtSignal()
 
     def __init__(self, main_figure, ax1):
-        super(plotThread, self).__init__()
+        super().__init__()
         self.main_figure = main_figure
         self.ax1 = ax1
 
@@ -46,11 +56,11 @@ class Window(QWidget):
 
         # Create tabs
         tabs = QTabWidget()
-        tabs.addTab(self.tab1_func(), 'Tab1')
-        tabs.addTab(self.tab2_func(), 'Tab2')
+        tabs.addTab(self.tab1_func(), "Tab1")
+        tabs.addTab(self.tab2_func(), "Tab2")
 
         # Create a button to refresh Tab1
-        refresh_btn = QPushButton('Refresh Interface')
+        refresh_btn = QPushButton("Refresh Interface")
         refresh_btn.clicked.connect(self.refresh_func)
 
         # vboxlayout
@@ -117,8 +127,8 @@ class Window(QWidget):
         self.start = datetime.now()
         self.vbox.takeAt(1).widget().deleteLater()
         tabs = QTabWidget()
-        tabs.addTab(self.tab1_func(), 'Tab1')
-        tabs.addTab(self.tab2_func(), 'Tab2')
+        tabs.addTab(self.tab1_func(), "Tab1")
+        tabs.addTab(self.tab2_func(), "Tab2")
 
         self.vbox.addWidget(tabs)
 
@@ -127,7 +137,7 @@ class Window(QWidget):
         return
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = Window()
     w.showMaximized()

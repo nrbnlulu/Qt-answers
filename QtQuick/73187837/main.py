@@ -1,14 +1,15 @@
-from pathlib import Path
-import sys
 import signal
+import sys
+from pathlib import Path
+
+from PyQt6.QtCore import QAbstractTableModel, Qt
 from PyQt6.QtGui import QGuiApplication
 from PyQt6.QtQml import QQmlApplicationEngine, qmlRegisterSingletonInstance
-from PyQt6.QtCore import Qt, QAbstractTableModel
 
 
 class InstalledPkgsModel(QAbstractTableModel):
     def __init__(self, data):
-        super(InstalledPkgsModel, self).__init__()
+        super().__init__()
         self._data = data
 
     def data(self, index, role):

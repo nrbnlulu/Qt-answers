@@ -20,7 +20,7 @@ class Worker(QRunnable):
         self.emiter = emiter
 
     def qimage_to_array(self, image: QImage) -> np.ndarray:
-        """Converts a QImage into an opencv MAT format"""
+        """Converts a QImage into an opencv MAT format."""
         image = image.convertToFormat(QImage.Format.Format_RGBA8888)
         width = image.width()
         height = image.height()
@@ -31,7 +31,7 @@ class Worker(QRunnable):
     def run(self):
         arr = self.qimage_to_array(self.image)
         gray = cv2.cvtColor(arr, cv2.COLOR_BGR2GRAY)
-        barcodes = pyzbar.decode(gray)
+        barcodes = pyzbar.decode(gray)  # noqa
         # logic here.
         # returning now random boolean
         self.emiter.emit(random.choice([True, False]))

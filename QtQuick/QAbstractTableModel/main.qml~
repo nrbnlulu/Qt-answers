@@ -2,14 +2,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
 import com.example.model 1.0
-
 ApplicationWindow {
     width: 640
     height: 480
     visible: true
     TableView {
+        anchors.fill: parent;
         id: tv
-        anchors.fill: parent
         columnSpacing: 1
         rowSpacing: 1
         clip: true
@@ -17,8 +16,7 @@ ApplicationWindow {
 
         model: PyModel
 
-        selectionModel: ItemSelectionModel {
-            id: selection_model
+        selectionModel: ItemSelectionModel {id: selection_model
             model: tv.model
         }
         SelectionRectangle {
@@ -32,9 +30,7 @@ ApplicationWindow {
 
             required property bool selected
 
-            Text {
-                text: display
-            }
+            Text { text: display }
         }
     }
 }

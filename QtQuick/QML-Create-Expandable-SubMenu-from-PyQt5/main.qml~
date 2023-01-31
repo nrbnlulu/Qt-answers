@@ -85,10 +85,10 @@ ApplicationWindow {
                             verticalCenter: parent.verticalCenter
                         }
                         onClicked: {
-                            myNestedListView.currentIndex = index;
-                            backendObjectInQML.model.collapseEditInputsMenu(index, "isCollapsed");
-                            console.log("From QML isCollapsed:");
-                            console.log(isCollapsed);
+                            myNestedListView.currentIndex = index
+                            backendObjectInQML.model.collapseEditInputsMenu(index, "isCollapsed")
+                            console.log("From QML isCollapsed:")
+                            console.log(isCollapsed)
                         }
                     }
                 }
@@ -99,8 +99,7 @@ ApplicationWindow {
                     sourceComponent: model.isCollapsed ? null : subItemEditInputsDelegate
                     onStatusChanged: {
                         // console.log(subItems)
-                        if (status == Loader.Ready)
-                            item.model = subEditItemModel;
+                        if(status == Loader.Ready) item.model = subEditItemModel
                     }
                 }
             }
@@ -110,8 +109,8 @@ ApplicationWindow {
             id: subItemEditInputsDelegate
 
             Column {
-                id: nestedListElementColumn
                 property alias model: subItemRepeater.model
+                id: nestedListElementColumn
                 width: myNestedListView.width
                 anchors {
                     top: parent.top
@@ -180,7 +179,7 @@ ApplicationWindow {
                                 clip: true
 
                                 onEditingFinished: {
-                                    console.log("cellSizeTextInput edited...");
+                                    console.log("cellSizeTextInput edited...")
                                 }
                             }
                         }
@@ -199,7 +198,7 @@ ApplicationWindow {
                 right: parent.right
             }
             onClicked: {
-                backendObjectInQML.model.appendRow("Dummy Item", false);
+                backendObjectInQML.model.appendRow("Dummy Item", false)
             }
         }
     }

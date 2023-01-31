@@ -1,10 +1,10 @@
 import sys
 from pathlib import Path
 
-from PySide6.QtGui import QGuiApplication
-from PySide6.QtQml import QQmlApplicationEngine
 from PySide6 import QtQml as qqml
 from PySide6.QtCore import QAbstractTableModel, Qt
+from PySide6.QtGui import QGuiApplication
+from PySide6.QtQml import QQmlApplicationEngine
 
 
 class Model(QAbstractTableModel):

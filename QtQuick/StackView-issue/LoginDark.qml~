@@ -6,15 +6,15 @@ Item {
     id: root
     anchors.fill: parent
 
-    signal loggedIn
+    signal loggedIn()
 
     Rectangle {
         id: rectangle
         color: "red"
         anchors.fill: parent
         Button {
-            onClicked: {
-                root.loggedIn();
+            onClicked:{
+                root.loggedIn()
             }
         }
     }

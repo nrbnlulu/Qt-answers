@@ -7,12 +7,8 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 
 
 class SendQueryWorker(qtc.QRunnable):
-    """
-    sends requests to the server
-    and returns result as dict
-    to the notifier supplied
-    flags will modify the data as necessary
-    """
+    """Sends requests to the server and returns result as dict to the notifier
+    supplied flags will modify the data as necessary."""
 
     def __init__(self, signal: qtc.Signal):
         super().__init__()
@@ -62,7 +58,7 @@ class Main(QMainWindow):
 
 
 def subscribe(signal: qtc.Signal) -> None:
-    """sends query and returns a dict|df to receiver"""
+    """Sends query and returns a dict|df to receiver."""
     worker = SendQueryWorker(signal)
     qtc.QThreadPool.globalInstance().start(worker)
 

@@ -1,15 +1,20 @@
 import sys
-
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import pyqtSignal, Qt, QTimer
+from PyQt5.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QMainWindow,
+    QApplication,
+    QGridLayout,
+    QLabel,
+)
 
 
 class ExampleApp(QMainWindow):
-
     def __init__(self):
         super().__init__()
-        self.title = 'Example'
+        self.title = "Example"
         self.left = 0
         self.top = 0
         self.width = 1000
@@ -45,21 +50,25 @@ class PictureWindow(QWidget):
         image_widget.setToolTip(filename)
         image_widget.setCursor(Qt.PointingHandCursor)
 
-        self.pixmapImagen = QPixmap(filename).scaled(375, 375, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.pixmapImagen = QPixmap(filename).scaled(
+            375, 375, Qt.KeepAspectRatio, Qt.SmoothTransformation
+        )
         image_widget.setPixmap(self.pixmapImagen)
         image_widget.setAlignment(Qt.AlignCenter)
 
         cell_layout = QVBoxLayout()
         cell_layout.setAlignment(Qt.AlignHCenter)
         cell_layout.addWidget(image_widget)
-        self.gridLayout.addLayout(cell_layout, int(pos / self.n_columns), pos % self.n_columns)
+        self.gridLayout.addLayout(
+            cell_layout, int(pos / self.n_columns), pos % self.n_columns
+        )
 
 
 class QLabelClickable(QLabel):
     clicked = pyqtSignal(str)
 
     def __init__(self, id, parent=None):
-        super(QLabelClickable, self).__init__(parent)
+        super().__init__(parent)
         self.id = id
 
     def mousePressEvent(self, event):
@@ -67,8 +76,10 @@ class QLabelClickable(QLabel):
 
     def mouseReleaseEvent(self, event):
         if self.ultimo == "Click":
-            QTimer.singleShot(QApplication.instance().doubleClickInterval(),
-                              self.performSingleClickAction)
+            QTimer.singleShot(
+                QApplication.instance().doubleClickInterval(),
+                self.performSingleClickAction,
+            )
         else:
             self.clicked.emit(self.ultimo + "-" + str(self.id))
 
@@ -80,7 +91,7 @@ class QLabelClickable(QLabel):
             self.clicked.emit(self.ultimo + "-" + str(self.id))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = ExampleApp()
     sys.exit(app.exec_())
