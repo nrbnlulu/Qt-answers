@@ -18,12 +18,11 @@ class Status(Enum):
     Connected, Disconnected, Stale = range(3)
 
 
-@QmlElement
-class Enums(QObject):
-    QEnum(Status)
+
 
 
 class App(QObject):
+    QEnum(Status)
     def __init__(self):
         super().__init__(None)
 

@@ -8,7 +8,7 @@ Window {
     title: "POC"
 
     Rectangle {
-        color: App.enumValue == Enums.Status.Connected ? "green" : "red"
+        color: App.enumValue == Status.Connected ? "green" : "red"
         anchors.fill: parent
     }
 }
