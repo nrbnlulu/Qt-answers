@@ -18,11 +18,9 @@ class Status(Enum):
     Connected, Disconnected, Stale = range(3)
 
 
-
-
-
 class App(QObject):
     QEnum(Status)
+
     def __init__(self):
         super().__init__(None)
 
