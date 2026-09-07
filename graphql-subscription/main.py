@@ -22,8 +22,7 @@ class SendQueryWorker(qtc.QRunnable):
             fetch_schema_from_transport=False,
         )
 
-        query = gql(
-            """
+        query = gql("""
             subscription MySubscription {
             alerts {
                 name
@@ -34,8 +33,7 @@ class SendQueryWorker(qtc.QRunnable):
             }
 
             }
-        """
-        )
+        """)
 
         for result in client.subscribe(query):
             self.signal.emit(result)
