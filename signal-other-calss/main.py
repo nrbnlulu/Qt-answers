@@ -31,16 +31,11 @@ class QCustomQWidget(QWidget):
         self.allQHBoxLayout.addLayout(self.textQVBoxLayout, 1)
         self.setLayout(self.allQHBoxLayout)
         # setStyleSheet
-        self.textUpQLabel.setStyleSheet(
-            """
-            color: rgb(0, 0, 255);
-        """
-        )
-        self.textDownQLabel.setStyleSheet(
-            """
-            color: rgb(255, 0, 0);
-        """
-        )
+        self.textUpQLabel.setStyleSheet("""Color: rgb(0, 0, 255);"""
+           )
+        self.textDownQLabel.setStyleSheet(\
+                                          """Color: rgb(255, 0, 0);"""
+           )
 
         self.openButton = QPushButton()
         # self.openButton.setText("open")
